@@ -1,0 +1,25 @@
+-- [Problem 2]
+user(_username_, email_address, pw_salt, pw_hash)
+
+album(_album_id_, album_title, album_descrip, username)
+- (album_title, username) is also a candidate key
+- username is a foreign key that references user.username
+
+media(_media_id_, title, description, upload_time, views, username)
+- username is a foreign key that references user.username
+
+photos(_media_id_, filename, photo_data)
+- media_id is a foreign key that references media.media_id
+
+videos(_media_id_, length, path)
+- media_id is a foreign key that references media.media_id
+
+album_media(_album_id_, _media_id_, summary_photo)
+- album_id is a foreign key that references album.album_id
+- media_id is a foreign key that references media.media_id
+
+comments(_comment_id_, username, comment_time, body, media_id)
+- username is a foreign key that references user.username
+- media_id is a foreign key that references media.media_id
+
+

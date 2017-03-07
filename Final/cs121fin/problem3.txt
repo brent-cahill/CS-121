@@ -1,0 +1,65 @@
+You can put your answers for Problem 3 in this file.  Follow this notation for
+writing your answers in text format:
+
+ * You can write functional dependencies as A -> B
+
+ * You can write a set of functional dependencies as { A -> BC, C -> D }
+
+ * You can write attribute-set closure as {A}+ etc.
+
+ * You can write multivalued dependencies as A ->> B
+
+ * When writing relation schemas, you can indicate primary-key attributes
+   by enclosing them with underscores, e.g. R1(_A_, B, C), R2(_C_, D)
+
+ * Don't forget that primary key attributes should always come first
+   when writing relation schemas
+
+-- [Problem 1a]
+The candidate key here is BH. We can compute the attribute set closure to show it is a super key. Then we will prove that it is a candidate key.
+{BH}+:    =BH      (start)
+          =ABH     (B -> A)
+          =ABCGH   (A -> CG)
+          =ABCGHI  (GH -> I)
+
+Thus, we know it is a super key. We also know that it is a candidate key because it must contain H, because the only way to get to I to to get H, and H is not derived from anything else. We also know that it must contain B to get to every other dependency that was written.
+
+-- [Problem 1b]
+Start: Fc = F = F = {A -> CG, B -> A, AB -> C, B -> G, GH -> I}.
+
+Union Rule:    Fc = {A -> CG, B -> AG, AB -> C, GH ->I}.
+Both A and B are extraneous in AB -> C, because we can still arrive at C given AB.
+               Fc = {A -> CG, B -> AG, GH -> I}.
+G is extraneous in B -> AG because we can still arrive at G given B.
+               Fc = {A -> CG, B -> A, GH -> I}.
+This is the final canonical cover. There are no remaining extraneous attributes and no two relations have the same left side.
+F_c = {A -> CG, B -> A, GH -> I}.
+
+
+-- [Problem 1c]
+Using the F_c, we get:
+R1(_A_, C, G)
+R2(_B_, A)
+R3(_G_, _H_, I)
+and, because we determined that BH is a candidate key:
+R4(_B_, _H_)
+
+
+-- [Problem 2a]
+Here are the 4NF relation schemas
+customers(_cust_id_, cust_address, cust_phone)
+- This is in BCNF and the left hand side of any dependency is a superkey
+orders(_order_id_, order_time, cust_id)
+- This is in BCNF and the left hand side of any dependency is a superkey
+pizza(_pizza_id_,order_id, pizza_size)
+- This is in BCNF and the left hand side of any dependency is a superkey
+pizza_topping(pizza_id, topping)
+- This is in BCNF and the left hand side of any dependency is a superkey (no dependencies)
+
+
+
+
+-- [Problem 2b]
+No, there cannot be a BCNF without being in 4NF because you cannot create a BCNF for this schema with multi-valued dependencies, which is the only type of BCNF that would not also be 4NF.
+
+

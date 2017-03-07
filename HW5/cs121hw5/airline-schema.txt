@@ -1,0 +1,31 @@
+Write the relational model schema for your airline database in this file, using
+the notation we have used all term.  You can indicate primary key columns by
+enclosing the attribute names in _ characters.  Include descriptions of other
+candidate keys or foreign keys (if any) immediately under each relation schema.
+Example:
+
+foo(_a_, b, c)
+ * b is also a candidate key
+ * c is a foreign key to bar.c
+------------------------------------------------------------------------------
+
+-- [Problem 4]
+
+airplanes(_type_code_, manufacturer, model)
+
+flights(_flight_number_, _flight_date_, flight_time, source_port, dest_port, flight_domesticality, type_code)
+-type_code is a foreign key that references airplanes.type_code
+
+seat_info(_flight_number_, _flight_date_, _seat_number_, seat_class, seat_type, exit_check)
+-flight_number and flight_date are foreign keys that reference flights.flight_number and flights.flight_date, respectively
+
+purchasers(_email_address_, first_name, last_name, phone_numbers, cc_num, exp_date, verification_code)
+
+purchases(_purchase_id_, purchase_time, email_address, confirmation_num)
+
+tickets(_ticket_id_, flight_number, flight_date, cost, seat_number, purchase_id)
+-flight_number, flight_date, seat_number, and purchase_id are foreign keys that reference flights.flight_number, flights.flight_date, seat_info.seat_number, and  purchases.purchase_id
+-(flight_number, flight_date, and seat_number) is a candidate key
+
+travelers(_email_, first_name, last_name, phone_number, passport_number, country, ec_name, ec_number, ff_number, ticket_id)
+-ticket_id is a foreign key that references tickets.ticket_id and a candidate key
